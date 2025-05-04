@@ -1,0 +1,312 @@
+/* トヨタセールスAIアシスタント レスポンシブスタイルシート */
+
+/* 小型デスクトップ (1200px以下) */
+@media (max-width: 1200px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .main-content {
+        padding: var(--spacing-l);
+    }
+    
+    .app-header {
+        padding: var(--spacing-m) var(--spacing-l);
+    }
+    
+    .card-body {
+        padding: var(--spacing-m);
+    }
+}
+
+/* タブレット (992px以下) */
+@media (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .app-header h1 {
+        font-size: var(--font-size-medium);
+    }
+    
+    .nav-item {
+        padding: var(--spacing-m) var(--spacing-m);
+    }
+    
+    .proposal-header {
+        flex-direction: column;
+    }
+    
+    .car-image-container {
+        width: 160px;
+        margin-left: 0;
+        margin-top: var(--spacing-m);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: var(--spacing-m);
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+    }
+    
+    .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-filter .form-group {
+        margin-bottom: var(--spacing-m);
+    }
+}
+
+/* 大型スマートフォン (768px以下) */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-m) var(--spacing-m);
+    }
+    
+    .app-header .logo-container {
+        margin-bottom: var(--spacing-s);
+    }
+    
+    .user-nav {
+        margin-top: var(--spacing-s);
+    }
+    
+    .main-nav {
+        padding: 0 var(--spacing-m);
+    }
+    
+    .nav-tabs {
+        justify-content: space-between;
+    }
+    
+    .nav-item {
+        padding: var(--spacing-s) var(--spacing-s);
+        font-size: var(--font-size-small);
+    }
+    
+    .nav-item i {
+        margin-right: 4px;
+    }
+    
+    .card-header h2 {
+        font-size: var(--font-size-medium);
+    }
+    
+    .card-header h2 i {
+        margin-right: 4px;
+    }
+    
+    .history-table th:nth-child(2), 
+    .history-table td:nth-child(2) {
+        display: none;
+    }
+    
+    .qa-accordion-header p {
+        font-size: var(--font-size-small);
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .history-detail-card {
+        width: 95%;
+    }
+    
+    .history-detail-actions {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+    }
+}
+
+/* スマートフォン (576px以下) */
+@media (max-width: 576px) {
+    html {
+        font-size: 13px;
+    }
+    
+    .app-header .logo {
+        max-height: 30px;
+    }
+    
+    .app-header h1 {
+        font-size: var(--font-size-base);
+    }
+    
+    .main-nav {
+        overflow-x: auto;
+    }
+    
+    .nav-item {
+        white-space: nowrap;
+        font-size: 0;
+        padding: var(--spacing-s) 0;
+        justify-content: center;
+    }
+    
+    .nav-item i {
+        margin-right: 0;
+        font-size: var(--font-size-medium);
+    }
+    
+    .nav-item.active::after {
+        left: 30%;
+        right: 30%;
+    }
+    
+    .card-header {
+        padding: var(--spacing-s) var(--spacing-m);
+    }
+    
+    .qa-input {
+        flex-direction: column;
+    }
+    
+    .qa-input input {
+        margin-right: 0;
+        margin-bottom: var(--spacing-s);
+    }
+    
+    .qa-input button {
+        width: 100%;
+    }
+    
+    .history-table th:nth-child(1), 
+    .history-table td:nth-child(1) {
+        display: none;
+    }
+    
+    .pagination-number:not(.active) {
+        display: none;
+    }
+    
+    .modal-header {
+        padding: var(--spacing-m);
+    }
+    
+    .modal-body {
+        padding: var(--spacing-m);
+    }
+    
+    .modal-footer {
+        padding: var(--spacing-m);
+        flex-direction: column;
+        gap: var(--spacing-s);
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+}
+
+/* 超小型スマートフォン (400px以下) */
+@media (max-width: 400px) {
+    .app-header .logo {
+        max-height: 25px;
+    }
+    
+    .user-nav span {
+        display: none;
+    }
+    
+    .card {
+        margin-bottom: var(--spacing-m);
+    }
+    
+    .card-header h2 {
+        font-size: var(--font-size-base);
+    }
+    
+    .action-buttons {
+        margin-top: var(--spacing-m);
+        margin-bottom: var(--spacing-l);
+    }
+    
+    .history-table td:last-child {
+        padding: var(--spacing-s);
+    }
+    
+    .history-table .btn-icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .notification {
+        max-width: 280px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+}
+
+/* 印刷用スタイル */
+@media print {
+    body {
+        background-color: white;
+    }
+    
+    .app-header, .main-nav, .app-footer, 
+    .action-buttons, #settings-modal,
+    #loading-overlay, .notification {
+        display: none !important;
+    }
+    
+    .main-content {
+        padding: 0;
+    }
+    
+    .card {
+        box-shadow: none;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+    }
+    
+    .card-header {
+        background-color: white;
+        color: black;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .card-toggle, .close-detail-btn, .qa-input {
+        display: none;
+    }
+    
+    .hidden {
+        display: block !important;
+    }
+    
+    .content-section:not(.active) {
+        display: none !important;
+    }
+}
+
+/* 高DPIデバイス向け調整 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .sales-talk {
+        border-left-width: 3px;
+    }
+    
+    .card {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+    
+    .nav-item.active::after {
+        height: 2px;
+    }
+}
+
+/* 暗いテーマ対応 (prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+    /* 注: 暗いテーマの実装は今回は含めていませんが、
+       将来的に実装する場合を想定してメディアクエリを用意しています */
+} 

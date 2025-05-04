@@ -1,0 +1,1072 @@
+/* トヨタセールスAIアシスタント スタイルシート */
+
+/* 変数定義 */
+:root {
+    /* カラーパレット */
+    --toyota-red: #E50012;
+    --toyota-dark-blue: #0F2B5B;
+    --toyota-light-blue: #5bb7db;
+    --toyota-silver: #e7e7e7;
+    --green: #4CAF50;
+    --yellow: #FFC107;
+    --red: #F44336;
+    
+    /* グレースケール */
+    --white: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --black: #000000;
+    
+    /* フォント */
+    --font-family: 'Noto Sans JP', sans-serif;
+    --font-size-small: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-medium: 1.125rem;
+    --font-size-large: 1.25rem;
+    --font-size-xlarge: 1.5rem;
+    --font-size-xxlarge: 2rem;
+    
+    /* スペース */
+    --spacing-xs: 0.25rem;
+    --spacing-s: 0.5rem;
+    --spacing-m: 1rem;
+    --spacing-l: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* 境界線 */
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-large: 12px;
+    --border-width: 1px;
+    
+    /* アニメーション */
+    --transition-quick: 0.2s;
+    --transition-default: 0.3s;
+    
+    /* シャドウ */
+    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* リセットとベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--gray-900);
+    background-color: var(--gray-100);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: var(--spacing-m);
+}
+
+h1 {
+    font-size: var(--font-size-xxlarge);
+}
+
+h2 {
+    font-size: var(--font-size-xlarge);
+}
+
+h3 {
+    font-size: var(--font-size-large);
+}
+
+p {
+    margin-bottom: var(--spacing-m);
+}
+
+a {
+    color: var(--toyota-dark-blue);
+    text-decoration: none;
+    transition: color var(--transition-quick);
+}
+
+a:hover {
+    color: var(--toyota-red);
+}
+
+ul, ol {
+    margin-bottom: var(--spacing-m);
+    padding-left: var(--spacing-xl);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ユーティリティクラス */
+.hidden {
+    display: none !important;
+}
+
+.required {
+    color: var(--toyota-red);
+}
+
+/* ボタンスタイル */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-s) var(--spacing-l);
+    border-radius: var(--border-radius-medium);
+    font-weight: 500;
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: all var(--transition-quick);
+    border: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn i {
+    margin-right: var(--spacing-s);
+}
+
+.btn-primary {
+    background-color: var(--toyota-red);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: #c20011;
+    color: var(--white);
+}
+
+.btn-secondary {
+    background-color: var(--toyota-dark-blue);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: #081c40;
+    color: var(--white);
+}
+
+.btn-text {
+    background-color: transparent;
+    color: var(--toyota-dark-blue);
+    padding: var(--spacing-xs) var(--spacing-s);
+}
+
+.btn-text:hover {
+    background-color: var(--gray-200);
+    color: var(--toyota-red);
+}
+
+.btn-icon {
+    background-color: transparent;
+    color: var(--gray-700);
+    padding: var(--spacing-s);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-quick);
+    border: none;
+}
+
+.btn-icon:hover {
+    background-color: var(--gray-200);
+    color: var(--toyota-red);
+}
+
+.btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: var(--font-size-large);
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: color var(--transition-quick);
+    padding: var(--spacing-xs);
+}
+
+.icon-btn:hover {
+    color: var(--toyota-red);
+}
+
+/* フォーム要素 */
+.form-group {
+    margin-bottom: var(--spacing-l);
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-m);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--gray-900);
+    background-color: var(--white);
+    border: var(--border-width) solid var(--gray-300);
+    border-radius: var(--border-radius-medium);
+    transition: border-color var(--transition-quick);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--toyota-light-blue);
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(91, 183, 219, 0.25);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ラジオボタン */
+.radio-group {
+    margin-bottom: var(--spacing-m);
+}
+
+.radio-item {
+    margin-bottom: var(--spacing-s);
+    display: flex;
+    align-items: flex-start;
+}
+
+.radio-item input[type="radio"] {
+    margin-right: var(--spacing-s);
+    margin-top: 4px; /* ラジオボタンとテキストの位置合わせ */
+}
+
+/* ファイル入力 */
+.file-input-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-s);
+}
+
+.file-input-container input[type="file"] {
+    position: absolute;
+    font-size: 100px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.file-input-label {
+    display: inline-block;
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+    padding: var(--spacing-m);
+    border-radius: var(--border-radius-medium);
+    cursor: pointer;
+    transition: background-color var(--transition-quick);
+}
+
+.file-input-label:hover {
+    background-color: var(--gray-300);
+}
+
+.file-input-label i {
+    margin-right: var(--spacing-s);
+}
+
+.selected-file {
+    font-size: var(--font-size-small);
+    color: var(--gray-600);
+    margin-top: var(--spacing-xs);
+}
+
+/* プログレスバー */
+.progress-bar-container {
+    height: 8px;
+    background-color: var(--gray-200);
+    border-radius: 4px;
+    margin-bottom: var(--spacing-xs);
+    overflow: hidden;
+    flex: 1;
+    margin-right: var(--spacing-m);
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--toyota-light-blue);
+    width: 0%;
+    transition: width var(--transition-default);
+}
+
+.processing-status {
+    display: flex;
+    align-items: center;
+}
+
+.processing-status label {
+    margin-bottom: 0;
+    margin-right: var(--spacing-m);
+}
+
+/* 認証画面 */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--gray-100);
+    padding: var(--spacing-m);
+}
+
+.login-form {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-large);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-form h1 {
+    margin-bottom: var(--spacing-xl);
+    color: var(--toyota-dark-blue);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-m);
+}
+
+.logo {
+    max-height: 50px;
+}
+
+/* アプリレイアウト */
+#app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ヘッダー */
+.app-header {
+    background-color: var(--white);
+    box-shadow: var(--shadow-small);
+    padding: var(--spacing-m) var(--spacing-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-header .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.app-header .logo {
+    max-height: 40px;
+    margin-right: var(--spacing-m);
+}
+
+.app-header h1 {
+    font-size: var(--font-size-large);
+    margin-bottom: 0;
+    color: var(--toyota-dark-blue);
+}
+
+.user-nav {
+    display: flex;
+    align-items: center;
+}
+
+.user-nav span {
+    margin-right: var(--spacing-m);
+    color: var(--gray-600);
+}
+
+/* メインナビゲーション */
+.main-nav {
+    background-color: var(--toyota-dark-blue);
+    padding: 0 var(--spacing-xl);
+}
+
+.nav-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.nav-item {
+    padding: var(--spacing-m) var(--spacing-l);
+    color: var(--gray-300);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-quick);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-item i {
+    margin-right: var(--spacing-s);
+}
+
+.nav-item:hover {
+    color: var(--white);
+}
+
+.nav-item.active {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--spacing-l);
+    right: var(--spacing-l);
+    height: 3px;
+    background-color: var(--toyota-red);
+}
+
+/* メインコンテンツ */
+.main-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn var(--transition-default);
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* カードスタイル */
+.card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-small);
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: var(--spacing-m) var(--spacing-l);
+    background-color: var(--gray-100);
+    border-bottom: var(--border-width) solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    margin-bottom: 0;
+    font-size: var(--font-size-large);
+    color: var(--toyota-dark-blue);
+    display: flex;
+    align-items: center;
+}
+
+.card-header h2 i {
+    margin-right: var(--spacing-s);
+    color: var(--toyota-red);
+}
+
+.card-toggle {
+    background: none;
+    border: none;
+    color: var(--gray-600);
+    font-size: var(--font-size-large);
+    cursor: pointer;
+    transition: transform var(--transition-quick);
+}
+
+.card-toggle:hover {
+    color: var(--toyota-red);
+}
+
+.card-toggle.collapsed {
+    transform: rotate(180deg);
+}
+
+.card-body {
+    padding: var(--spacing-l);
+}
+
+/* 顧客サマリー */
+.customer-summary-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-summary-content p {
+    margin-bottom: var(--spacing-s);
+}
+
+/* 提案内容 */
+.proposal-content {
+    margin-bottom: var(--spacing-l);
+}
+
+.proposal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-m);
+}
+
+.proposal-header h3 {
+    color: var(--toyota-dark-blue);
+    margin-bottom: var(--spacing-s);
+}
+
+.car-image-container {
+    width: 200px;
+    margin-left: var(--spacing-l);
+}
+
+.car-image {
+    width: 100%;
+    border-radius: var(--border-radius-medium);
+}
+
+.proposal-details {
+    margin-bottom: var(--spacing-m);
+}
+
+.proposal-details p {
+    margin-bottom: var(--spacing-s);
+}
+
+.proposal-reason h4 {
+    color: var(--toyota-dark-blue);
+    margin-bottom: var(--spacing-s);
+}
+
+.proposal-reason ul {
+    margin-bottom: 0;
+}
+
+/* Q&A */
+.qa-item {
+    margin-bottom: var(--spacing-l);
+}
+
+.qa-question, .qa-answer {
+    display: flex;
+    margin-bottom: var(--spacing-s);
+}
+
+.qa-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: var(--spacing-s);
+    flex-shrink: 0;
+}
+
+.qa-question .qa-badge {
+    background-color: var(--toyota-dark-blue);
+    color: var(--white);
+}
+
+.qa-answer .qa-badge {
+    background-color: var(--toyota-red);
+    color: var(--white);
+}
+
+.qa-input {
+    display: flex;
+    margin-top: var(--spacing-l);
+}
+
+.qa-input input {
+    flex: 1;
+    margin-right: var(--spacing-m);
+}
+
+/* アコーディオン */
+.qa-accordion {
+    margin-bottom: var(--spacing-m);
+}
+
+.qa-accordion-item {
+    border-bottom: var(--border-width) solid var(--gray-200);
+    margin-bottom: var(--spacing-s);
+}
+
+.qa-accordion-header {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--spacing-s) 0;
+    cursor: pointer;
+}
+
+.qa-accordion-header p {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.qa-accordion-header i {
+    color: var(--gray-600);
+    transition: transform var(--transition-quick);
+    margin-left: var(--spacing-s);
+}
+
+.qa-accordion-header.active i {
+    transform: rotate(180deg);
+}
+
+.qa-accordion-content {
+    display: none;
+    padding: var(--spacing-s) 0 var(--spacing-m) 30px;
+}
+
+.qa-accordion-content.active {
+    display: flex;
+}
+
+/* セールストーク */
+.sales-talk {
+    background-color: var(--gray-100);
+    border-left: 4px solid var(--toyota-light-blue);
+    padding: var(--spacing-l);
+    margin-bottom: var(--spacing-m);
+    border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+}
+
+/* ロールプレイボタン */
+.roleplay-buttons {
+    text-align: center;
+}
+
+.roleplay-buttons p {
+    color: var(--gray-600);
+    font-size: var(--font-size-small);
+    margin-bottom: var(--spacing-m);
+}
+
+.btn-group {
+    display: flex;
+    gap: var(--spacing-m);
+    justify-content: center;
+}
+
+/* アクションボタン */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-l);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* 履歴画面 */
+.search-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-m);
+    align-items: flex-end;
+}
+
+.search-filter .form-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+}
+
+.history-table-container {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th, .history-table td {
+    padding: var(--spacing-m);
+    text-align: left;
+    border-bottom: var(--border-width) solid var(--gray-200);
+}
+
+.history-table th {
+    background-color: var(--gray-100);
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.history-table tr:hover {
+    background-color: var(--gray-100);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-l);
+    gap: var(--spacing-xs);
+}
+
+.pagination-btn, .pagination-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--border-radius-small);
+    background-color: var(--white);
+    border: var(--border-width) solid var(--gray-200);
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all var(--transition-quick);
+}
+
+.pagination-btn:hover, .pagination-number:hover {
+    background-color: var(--gray-200);
+}
+
+.pagination-number.active {
+    background-color: var(--toyota-dark-blue);
+    color: var(--white);
+    border-color: var(--toyota-dark-blue);
+}
+
+.pagination-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.history-detail-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 100;
+    box-shadow: var(--shadow-large);
+}
+
+.close-detail-btn {
+    background: none;
+    border: none;
+    font-size: var(--font-size-large);
+    color: var(--gray-600);
+    cursor: pointer;
+}
+
+.history-detail-content {
+    padding: var(--spacing-m);
+}
+
+.history-detail-content h3 {
+    color: var(--toyota-dark-blue);
+    margin-bottom: var(--spacing-m);
+}
+
+.history-detail-actions {
+    display: flex;
+    gap: var(--spacing-m);
+    margin-top: var(--spacing-l);
+}
+
+/* モーダル */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-m);
+}
+
+.modal-content {
+    background-color: var(--white);
+    border-radius: var(--border-radius-large);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalFadeIn var(--transition-default);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-l);
+    border-bottom: var(--border-width) solid var(--gray-200);
+}
+
+.modal-header h2 {
+    margin-bottom: 0;
+    font-size: var(--font-size-large);
+    color: var(--toyota-dark-blue);
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: var(--font-size-large);
+    color: var(--gray-600);
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: var(--spacing-l);
+}
+
+.modal-footer {
+    padding: var(--spacing-l);
+    border-top: var(--border-width) solid var(--gray-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-m);
+}
+
+/* 設定画面 */
+.settings-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.settings-section h3 {
+    color: var(--toyota-dark-blue);
+    margin-bottom: var(--spacing-m);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: var(--border-width) solid var(--gray-200);
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--gray-600);
+    cursor: pointer;
+}
+
+.connection-status {
+    background-color: var(--gray-100);
+    padding: var(--spacing-m);
+    border-radius: var(--border-radius-medium);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-s);
+}
+
+.status-indicator i {
+    margin-right: var(--spacing-s);
+    font-size: var(--font-size-large);
+}
+
+.status-indicator.success {
+    color: var(--green);
+}
+
+.status-indicator.error {
+    color: var(--red);
+}
+
+.status-indicator.warning {
+    color: var(--yellow);
+}
+
+/* フッター */
+.app-footer {
+    background-color: var(--gray-800);
+    color: var(--gray-300);
+    padding: var(--spacing-l) var(--spacing-xl);
+    text-align: center;
+}
+
+.footer-links {
+    margin-top: var(--spacing-s);
+}
+
+.footer-link {
+    color: var(--gray-400);
+    margin: 0 var(--spacing-s);
+    font-size: var(--font-size-small);
+}
+
+.footer-link:hover {
+    color: var(--white);
+}
+
+/* ローディング */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.loader {
+    border: 4px solid var(--gray-200);
+    border-top: 4px solid var(--toyota-red);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-m);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 通知 */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--white);
+    box-shadow: var(--shadow-medium);
+    padding: var(--spacing-m) var(--spacing-l);
+    border-radius: var(--border-radius-medium);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 350px;
+    z-index: 1500;
+    animation: notificationFadeIn var(--transition-default);
+}
+
+@keyframes notificationFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon {
+    margin-right: var(--spacing-m);
+    font-size: var(--font-size-large);
+}
+
+.notification.success .notification-icon {
+    color: var(--green);
+}
+
+.notification.error .notification-icon {
+    color: var(--red);
+}
+
+.notification.warning .notification-icon {
+    color: var(--yellow);
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--gray-600);
+    cursor: pointer;
+    margin-left: var(--spacing-m);
+} 
