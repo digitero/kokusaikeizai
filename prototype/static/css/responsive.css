@@ -1,0 +1,191 @@
+/* トヨタセールスAIアシスタント レスポンシブスタイル */
+
+/* モバイルファースト（小さい画面から定義）*/
+
+/* 小型タブレット (600px以上) */
+@media (min-width: 600px) {
+    .login-form {
+        max-width: 400px;
+        padding: 2rem;
+    }
+    
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .search-filter {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+    }
+    
+    .action-buttons {
+        display: flex;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* タブレット (768px以上) */
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+    
+    .app-header {
+        padding: 1rem 2rem;
+    }
+    
+    .main-nav {
+        padding: 0 2rem;
+    }
+    
+    .main-content {
+        padding: 2rem;
+    }
+    
+    .nav-tabs {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .nav-item {
+        margin-right: 0.5rem;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .modal-content {
+        max-width: 600px;
+    }
+    
+    .proposal-tabs {
+        flex-direction: row;
+    }
+    
+    .proposal-tab {
+        margin-right: 0.5rem;
+        margin-bottom: 0;
+    }
+}
+
+/* デスクトップ (992px以上) */
+@media (min-width: 992px) {
+    .main-content {
+        padding: 2rem 3rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .search-filter {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+    
+    .history-table th, .history-table td {
+        padding: 0.75rem 1rem;
+    }
+    
+    .proposal-tab {
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* 大型デスクトップ (1200px以上) */
+@media (min-width: 1200px) {
+    .main-content {
+        padding: 2rem 4rem;
+    }
+    
+    .modal-content {
+        max-width: 800px;
+    }
+    
+    .settings-section {
+        padding: 1.5rem;
+    }
+}
+
+/* 小型モバイル (599px以下) */
+@media (max-width: 599px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .app-header {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+    
+    .app-header .logo-container {
+        margin-bottom: 1rem;
+    }
+    
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-item {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-header h2 {
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-toggle {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons button {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .history-table th, .history-table td {
+        padding: 0.5rem;
+    }
+    
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    
+    .qa-input {
+        flex-direction: column;
+    }
+    
+    .qa-input input {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .qa-input button {
+        width: 100%;
+    }
+    
+    .proposal-tabs {
+        flex-direction: column;
+    }
+    
+    .proposal-tab {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+} 

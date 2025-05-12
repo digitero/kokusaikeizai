@@ -28,6 +28,9 @@ function initApp() {
     
     // アコーディオン初期化
     initAccordions();
+    
+    // プロポーザルタブ初期化
+    initProposalTabs();
 }
 
 /**
@@ -71,11 +74,29 @@ function setupEventListeners() {
         generateProposalBtn.addEventListener('click', handleGenerateProposal);
     }
     
-    // ロールプレイ開始ボタン
-    const startRoleplayBtn = document.getElementById('start-roleplay-btn');
-    if (startRoleplayBtn) {
-        startRoleplayBtn.addEventListener('click', function() {
-            changeTab('roleplay');
+    // セールストーク生成ボタン
+    const generateSalesTalkBtn = document.getElementById('generate-salestalk-btn');
+    if (generateSalesTalkBtn) {
+        generateSalesTalkBtn.addEventListener('click', handleGenerateSalesTalk);
+    }
+    
+    // 履歴に保存ボタン
+    const saveProposalBtn = document.getElementById('save-proposal-btn');
+    if (saveProposalBtn) {
+        saveProposalBtn.addEventListener('click', handleSaveProposal);
+    }
+    
+    // 履歴に保存ボタン（ロールプレイ画面）
+    const saveHistoryBtn = document.getElementById('save-history-btn');
+    if (saveHistoryBtn) {
+        saveHistoryBtn.addEventListener('click', handleSaveProposal);
+    }
+    
+    // 提案画面に戻るボタン
+    const backToProposalBtn = document.getElementById('back-to-proposal-btn');
+    if (backToProposalBtn) {
+        backToProposalBtn.addEventListener('click', function() {
+            changeTab('proposal');
         });
     }
     
@@ -101,12 +122,6 @@ function setupEventListeners() {
     const qaSubmitBtn = document.getElementById('qa-submit');
     if (qaSubmitBtn) {
         qaSubmitBtn.addEventListener('click', handleAskQuestion);
-    }
-    
-    // 音声ファイル処理ボタン
-    const processVoiceBtn = document.getElementById('process-voice-btn');
-    if (processVoiceBtn) {
-        processVoiceBtn.addEventListener('click', handleProcessVoice);
     }
     
     // ログアウトボタン
@@ -136,6 +151,38 @@ function initAccordions() {
             } else {
                 content.style.display = 'flex';
                 content.classList.add('active');
+            }
+        });
+    });
+}
+
+/**
+ * プロポーザルタブの初期化
+ */
+function initProposalTabs() {
+    const tabs = document.querySelectorAll('.proposal-tab');
+    if (tabs.length === 0) return;
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // 現在のアクティブタブを非アクティブにする
+            document.querySelectorAll('.proposal-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            
+            // 現在のアクティブコンテンツを非アクティブにする
+            document.querySelectorAll('.proposal-tab-content').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            // クリックされたタブをアクティブにする
+            this.classList.add('active');
+            
+            // 対応するコンテンツをアクティブにする
+            const tabId = this.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
             }
         });
     });
@@ -402,4 +449,63 @@ function handleAskQuestion() {
         // 入力フィールドをクリア
         questionInput.value = '';
     }, 1500);
+}
+
+/**
+ * セールストーク生成処理
+ */
+function handleGenerateSalesTalk() {
+    // 処理開始を通知
+    toggleLoading(true);
+    
+    // セールストーク生成APIを呼び出す
+    // 実際の実装ではDify APIにリクエストを送信
+    
+    // デモ用：タイマーで遅延を模倣
+    setTimeout(() => {
+        toggleLoading(false);
+        
+        // サンプルセールストークをセット
+        const salesTalkContent = document.getElementById('salestalk-content');
+        salesTalkContent.innerHTML = `
+            <p>山田様、本日はご来店いただきありがとうございます。お子様の成長を考慮されているとのこと、大変素晴らしいポイントに着目されていますね。</p>
+            <p>シエンタは特に3列シートの使い勝手が良く、お子様が成長されても余裕を持ってお使いいただけます。また、燃費性能も優れており、経済的な維持費も魅力の一つです。</p>
+            <p>ご提案した残価設定型クレジットは、月々のお支払いを抑えながら、5年後のお子様の環境変化に合わせて自由に選択できる仕組みです。新車の安全性能と経済性を両立させた、山田様ご家族にぴったりのプランかと思います。</p>
+            <p>現在実施中の下取りキャンペーンと合わせると、さらにお得にご購入いただけますので、ぜひご検討ください。</p>
+            <button id="copy-sales-talk" class="btn btn-text">
+                <i class="fas fa-copy"></i> 全文コピー
+            </button>
+        `;
+        
+        // コピーボタンの機能を再設定
+        document.getElementById('copy-sales-talk').addEventListener('click', function() {
+            const text = Array.from(salesTalkContent.querySelectorAll('p'))
+                .map(p => p.textContent)
+                .join('\n\n');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('セールストークをコピーしました', 'success');
+            });
+        });
+        
+        // ロールプレイ画面に遷移
+        changeTab('roleplay');
+        
+        showNotification('セールストークを生成しました', 'success');
+    }, 2000);
+}
+
+/**
+ * 提案を履歴に保存する処理
+ */
+function handleSaveProposal() {
+    toggleLoading(true);
+    
+    // 実際の実装では提案データをサーバーに送信する
+    
+    // デモ用：タイマーで遅延を模倣
+    setTimeout(() => {
+        toggleLoading(false);
+        showNotification('提案内容を履歴に保存しました', 'success');
+    }, 1000);
 } 

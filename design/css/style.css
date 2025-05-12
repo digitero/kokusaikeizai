@@ -1070,3 +1070,53 @@ textarea {
     cursor: pointer;
     margin-left: var(--spacing-m);
 } 
+
+/* プロポーザルタブ */
+.proposal-tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-l) 0;
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.proposal-tab {
+    padding: var(--spacing-m) var(--spacing-l);
+    margin-right: var(--spacing-s);
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: all var(--transition-quick);
+}
+
+.proposal-tab i {
+    margin-right: var(--spacing-xs);
+}
+
+.proposal-tab:hover {
+    color: var(--toyota-dark-blue);
+}
+
+.proposal-tab.active {
+    color: var(--toyota-red);
+}
+
+.proposal-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--toyota-red);
+}
+
+.proposal-tab-content {
+    display: none;
+}
+
+.proposal-tab-content.active {
+    display: block;
+    animation: fadeIn var(--transition-default) ease;
+} 

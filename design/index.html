@@ -79,7 +79,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="customer-name">顧客名/ID <span class="required">*</span></label>
+                            <label for="customer-name">氏名（顧客ID） <span class="required">*</span></label>
                             <input type="text" id="customer-name" name="customer-name" required>
                         </div>
                     </div>
@@ -92,16 +92,16 @@
                     <div class="card-body">
                         <div class="radio-group">
                             <div class="radio-item">
-                                <input type="radio" id="type-1" name="customer-type" value="no-intent" checked>
-                                <label for="type-1">まだ購入意思なし（サービスで来店、たまたま来店など）</label>
+                                <input type="radio" id="type-1" name="customer-type" value="purchase-intent-none" checked>
+                                <label for="type-1">購入意向なし（サービスで来店）</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" id="type-2" name="customer-type" value="no-intent-interest">
-                                <label for="type-2">まだ購入意思なし＆興味ある車種はいくつかあり</label>
+                                <input type="radio" id="type-2" name="customer-type" value="purchase-intent-some">
+                                <label for="type-2">購入意向あり（車種検討済み）</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" id="type-3" name="customer-type" value="intent-undecided">
-                                <label for="type-3">購入意思はある程度あり＆車種については（ほぼ）白紙</label>
+                                <input type="radio" id="type-3" name="customer-type" value="purchase-comparison">
+                                <label for="type-3">相見積もり（競合検討）</label>
                             </div>
                         </div>
                     </div>
@@ -113,37 +113,21 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="customer-details">年齢、家族構成、趣味・ライフスタイル、現在の車、不満点、重視する点など</label>
-                            <textarea id="customer-details" name="customer-details" rows="6" placeholder="顧客情報の詳細を入力してください"></textarea>
+                            <label for="customer-details">顧客情報詳細</label>
+                            <textarea id="customer-details" name="customer-details" rows="6" placeholder="年齢、家族構成、趣味・ライフスタイル、現在の車、不満点、重視する点などを入力してください"></textarea>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-microphone"></i> 音声ファイルから情報抽出</h2>
+                        <h2><i class="fas fa-store"></i> 取引情報</h2>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="voice-file">対応形式: MP3, WAV, M4A</label>
-                            <div class="file-input-container">
-                                <input type="file" id="voice-file" name="voice-file" accept=".mp3,.wav,.m4a">
-                                <div class="file-input-label">
-                                    <i class="fas fa-cloud-upload-alt"></i> ファイルを選択
-                                </div>
-                            </div>
-                            <div class="selected-file" id="selected-file-name">選択されていません</div>
+                            <label for="dealer-info">販売店情報（キャンペーンなど）</label>
+                            <input type="text" id="dealer-info" name="dealer-info" placeholder="下取りキャンペーン、金利優遇など">
                         </div>
-                        <div class="form-group processing-status hidden">
-                            <label>処理状況:</label>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" id="processing-progress"></div>
-                            </div>
-                            <span id="processing-status">0%</span>
-                        </div>
-                        <button id="process-voice-btn" class="btn btn-secondary" disabled>
-                            <i class="fas fa-play"></i> 処理開始
-                        </button>
                     </div>
                 </div>
 
@@ -162,36 +146,112 @@
                     </div>
                     <div class="card-body" id="customer-summary">
                         <div class="customer-summary-content">
-                            <p><strong>山田様（35歳・男性）</strong></p>
-                            <p>購入意向: ある程度あり・車種は白紙</p>
-                            <p>家族構成: 妻、子供2人（5歳・2歳）</p>
+                            <p><strong><span id="summary-name">山田太郎</span>様</strong></p>
+                            <p>顧客タイプ: <span id="summary-type">購入意向あり（車種検討済み）</span></p>
+                            <p id="summary-details">家族構成: 妻、子供2人（5歳・2歳）</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-car"></i> 提案車種</h2>
+                        <h2><i class="fas fa-car"></i> 提案内容</h2>
                     </div>
                     <div class="card-body">
-                        <div class="proposal-content">
-                            <div class="proposal-header">
-                                <h3>シエンタ</h3>
-                                <div class="car-image-container">
-                                    <img src="images/car-sienta.jpg" alt="シエンタ" class="car-image">
+                        <!-- タブナビゲーション -->
+                        <ul class="proposal-tabs">
+                            <li class="proposal-tab active" data-tab="car-tab">
+                                <i class="fas fa-car-side"></i> 車種
+                            </li>
+                            <li class="proposal-tab" data-tab="payment-tab">
+                                <i class="fas fa-yen-sign"></i> 支払方法
+                            </li>
+                            <li class="proposal-tab" data-tab="timing-tab">
+                                <i class="fas fa-calendar-alt"></i> 購入時期
+                            </li>
+                            <li class="proposal-tab" data-tab="tradein-tab">
+                                <i class="fas fa-exchange-alt"></i> 下取り
+                            </li>
+                        </ul>
+
+                        <!-- タブコンテンツ -->
+                        <div class="tab-content">
+                            <!-- 車種タブ -->
+                            <div id="car-tab" class="proposal-tab-content active">
+                                <div class="proposal-header">
+                                    <h3 id="car-model">シエンタ</h3>
+                                </div>
+                                <div class="proposal-details">
+                                    <p><strong>グレード:</strong> <span id="car-grade">G （推奨）</span></p>
+                                    <p><strong>価格帯:</strong> <span id="car-price">270万円～</span></p>
+                                </div>
+                                <div class="proposal-reason">
+                                    <h4>提案理由:</h4>
+                                    <p id="car-reason">
+                                        家族4人での使用に適した3列シート、子供の成長に合わせて長く使える実用性、燃費性能の良さと経済性を考慮して選定しました。
+                                    </p>
                                 </div>
                             </div>
-                            <div class="proposal-details">
-                                <p><strong>グレード:</strong> G （推奨）</p>
-                                <p><strong>価格帯:</strong> 270万円～</p>
+
+                            <!-- 支払方法タブ -->
+                            <div id="payment-tab" class="proposal-tab-content">
+                                <div class="proposal-header">
+                                    <h3 id="payment-method">残価設定型クレジット</h3>
+                                </div>
+                                <div class="proposal-details">
+                                    <p><strong>月々の支払い目安:</strong> <span id="payment-monthly">35,000円</span></p>
+                                    <p><strong>頭金:</strong> <span id="payment-downpayment">50万円</span></p>
+                                    <p><strong>契約期間:</strong> <span id="payment-period">60ヶ月（5年）</span></p>
+                                    <p><strong>ボーナス加算:</strong> <span id="payment-bonus">年2回 各10万円</span></p>
+                                    <p><strong>残価設定額:</strong> <span id="payment-residual">約110万円（車両価格の40％）</span></p>
+                                    <p><strong>実質年率:</strong> <span id="payment-rate">2.9％</span></p>
+                                </div>
+                                <div class="proposal-reason">
+                                    <h4>提案理由:</h4>
+                                    <p id="payment-reason">
+                                        子供の教育費増加を見据えた家計計画、5年後の買い替えニーズに対応、月々の支払いを抑えながら新車に乗れるメリットがあります。
+                                    </p>
+                                </div>
                             </div>
-                            <div class="proposal-reason">
-                                <h4>提案理由:</h4>
-                                <ul>
-                                    <li>家族4人での使用に適した3列シート</li>
-                                    <li>子供の成長に合わせて長く使える実用性</li>
-                                    <li>燃費性能の良さと経済性</li>
-                                </ul>
+
+                            <!-- 購入時期タブ -->
+                            <div id="timing-tab" class="proposal-tab-content">
+                                <div class="proposal-header">
+                                    <h3 id="recommended-timing">3ヶ月以内の購入を推奨</h3>
+                                </div>
+                                <div class="proposal-details">
+                                    <p><strong>推奨時期:</strong> <span id="timing-period">2025年7月まで</span></p>
+                                    <p><strong>現在のキャンペーン:</strong> <span id="timing-campaign">夏の買替応援キャンペーン実施中</span></p>
+                                </div>
+                                <div class="proposal-reason">
+                                    <h4>提案理由:</h4>
+                                    <p id="timing-reason">
+                                        現在実施中のキャンペーンにより、下取り価格の上乗せや金利優遇が適用され、最もお得に購入できる時期です。また、お子様の夏休み前の納車で家族でのおでかけにも活用できます。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 下取りタブ -->
+                            <div id="tradein-tab" class="proposal-tab-content">
+                                <div class="proposal-header">
+                                    <h3>下取り対応の詳細</h3>
+                                </div>
+                                <div class="proposal-details">
+                                    <p><strong>下取車両:</strong> <span id="tradein-car">スズキ ワゴンR（2015年式）</span></p>
+                                    <p><strong>査定金額:</strong> <span id="tradein-price">約45万円</span></p>
+                                    <p><strong>特別査定キャンペーン:</strong> <span id="tradein-campaign">+5万円</span></p>
+                                    <p><strong>下取適用後の車両価格:</strong> <span id="tradein-final">220万円〜</span></p>
+                                </div>
+                                <div class="proposal-reason">
+                                    <h4>下取りメリット:</h4>
+                                    <div id="tradein-details">
+                                        <ul>
+                                            <li>名義変更や廃車手続きの手間が不要</li>
+                                            <li>新車の頭金に充当可能</li>
+                                            <li>現在実施中の下取りキャンペーンで査定額アップ</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -199,66 +259,13 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-yen-sign"></i> 支払方法の提案</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="proposal-content">
-                            <div class="proposal-header">
-                                <h3>残価設定型クレジット</h3>
-                            </div>
-                            <div class="proposal-details">
-                                <p><strong>月々の支払い目安:</strong> 35,000円</p>
-                                <p><strong>頭金:</strong> 50万円</p>
-                                <p><strong>契約期間:</strong> 60ヶ月（5年）</p>
-                                <p><strong>ボーナス加算:</strong> 年2回 各10万円</p>
-                                <p><strong>残価設定額:</strong> 約110万円（車両価格の40％）</p>
-                                <p><strong>実質年率:</strong> 2.9％</p>
-                            </div>
-                            <div class="proposal-reason">
-                                <h4>提案理由:</h4>
-                                <ul>
-                                    <li>子供の教育費増加を見据えた家計計画</li>
-                                    <li>5年後の買い替えニーズに対応</li>
-                                    <li>月々の支払いを抑えながら新車に乗れる</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2><i class="fas fa-exchange-alt"></i> 下取対応の詳細</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="proposal-content">
-                            <div class="proposal-details">
-                                <p><strong>下取車両:</strong> スズキ ワゴンR（2015年式）</p>
-                                <p><strong>査定金額:</strong> 約45万円</p>
-                                <p><strong>特別査定キャンペーン:</strong> +5万円</p>
-                                <p><strong>下取適用後の車両価格:</strong> 220万円〜</p>
-                            </div>
-                            <div class="proposal-reason">
-                                <h4>下取りメリット:</h4>
-                                <ul>
-                                    <li>名義変更や廃車手続きの手間が不要</li>
-                                    <li>新車の頭金に充当可能</li>
-                                    <li>現在実施中の下取りキャンペーンで査定額アップ</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2><i class="fas fa-question"></i> 想定質問と回答例</h2>
+                        <h2><i class="fas fa-question"></i> よくある質問と回答</h2>
                         <button class="card-toggle" aria-label="トグル">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                     </div>
                     <div class="card-body">
-                        <div class="qa-accordion">
+                        <div class="qa-accordion" id="faq-items">
                             <div class="qa-accordion-item">
                                 <div class="qa-accordion-header">
                                     <span class="qa-badge">Q</span>
@@ -290,25 +297,25 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-question-circle"></i> Q&A/質問応答</h2>
+                        <h2><i class="fas fa-question-circle"></i> 質問応答</h2>
                         <button class="card-toggle" aria-label="トグル">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                     </div>
                     <div class="card-body">
-                        <div id="qa-responses" class="hidden">
+                        <div id="qa-responses" class="qa-responses">
                             <!-- 質問と回答が動的に追加される場所 -->
                         </div>
                         <div class="qa-input">
-                            <input type="text" id="qa-question" placeholder="質問を入力してください">
+                            <input type="text" id="qa-question" placeholder="この提案について質問があれば入力してください">
                             <button id="qa-submit" class="btn btn-secondary">質問する</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button id="start-roleplay-btn" class="btn btn-primary">
-                        <i class="fas fa-comments"></i> ロールプレイを開始
+                    <button id="generate-salestalk-btn" class="btn btn-primary">
+                        <i class="fas fa-comments"></i> セールストークを生成
                     </button>
                     <button id="save-proposal-btn" class="btn btn-secondary">
                         <i class="fas fa-save"></i> 履歴に保存
@@ -320,13 +327,11 @@
             <section id="roleplay" class="content-section">
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-comment-dots"></i> 推奨セールストーク</h2>
+                        <h2><i class="fas fa-comment-dots"></i> セールストーク</h2>
                     </div>
                     <div class="card-body">
-                        <div class="sales-talk">
-                            <p>山田様、今日はお子様連れでのご来店、ありがとうございます。お子様の年齢を伺うと、シエンタが最適かと思います。特に3列シートは、お子様の成長に合わせて長く快適にお使いいただけます。</p>
-                            <p>また、燃費性能も優れているので、経済的にもメリットがあります。お子様の教育費が増えていく時期に、維持費を抑えられる点もおすすめポイントです。</p>
-                            <p>残価設定型クレジットであれば、月々の支払いを抑えながら、お子様の成長に合わせて5年後に買い替えることも可能です。</p>
+                        <div class="sales-talk" id="salestalk-content">
+                            <p class="text-muted">「セールストークを生成」ボタンをクリックして、AIによるセールストークを生成してください。</p>
                             <button id="copy-sales-talk" class="btn btn-text">
                                 <i class="fas fa-copy"></i> 全文コピー
                             </button>
@@ -340,9 +345,9 @@
                     </div>
                     <div class="card-body">
                         <div class="roleplay-buttons">
-                            <p>※新しいタブで開きます</p>
+                            <p>実際の商談に備えて練習ができます。セールス役と顧客役を選択してください。</p>
                             <div class="btn-group">
-                                <button id="sales-role-btn" class="btn btn-primary">
+                                <button id="sales-role-btn" class="btn btn-secondary">
                                     <i class="fas fa-user-tie"></i> セールス役でプレイ
                                 </button>
                                 <button id="customer-role-btn" class="btn btn-secondary">
@@ -354,11 +359,11 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button id="save-roleplay-btn" class="btn btn-primary">
+                    <button id="save-history-btn" class="btn btn-primary">
                         <i class="fas fa-save"></i> 履歴に保存
                     </button>
                     <button id="back-to-proposal-btn" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> 前の画面に戻る
+                        <i class="fas fa-arrow-left"></i> 提案画面に戻る
                     </button>
                 </div>
             </section>
@@ -373,16 +378,15 @@
                         <div class="search-filter">
                             <div class="form-group">
                                 <label for="history-search">顧客名</label>
-                                <input type="text" id="history-search" placeholder="検索...">
+                                <input type="text" id="history-search" placeholder="顧客名で検索...">
                             </div>
                             <div class="form-group">
                                 <label for="history-period">期間</label>
                                 <select id="history-period">
-                                    <option value="all">すべて</option>
-                                    <option value="today">今日</option>
-                                    <option value="week" selected>今週</option>
-                                    <option value="month">今月</option>
-                                    <option value="year">今年</option>
+                                    <option value="all">すべての期間</option>
+                                    <option value="week">過去1週間</option>
+                                    <option value="month">過去1ヶ月</option>
+                                    <option value="quarter">過去3ヶ月</option>
                                 </select>
                             </div>
                             <button id="history-search-btn" class="btn btn-secondary">
@@ -407,19 +411,21 @@
                                         <th>日時</th>
                                         <th>顧客名</th>
                                         <th>提案車種</th>
+                                        <th>顧客タイプ</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="history-table-body">
                                     <tr>
                                         <td>2025/4/10</td>
                                         <td>山田太郎</td>
                                         <td>シエンタ</td>
+                                        <td>購入意向あり</td>
                                         <td>
-                                            <button class="btn btn-icon view-detail-btn" data-id="1">
+                                            <button class="btn btn-icon view-detail-btn" data-id="1" title="詳細表示">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-icon delete-history-btn" data-id="1">
+                                            <button class="btn btn-icon delete-history-btn" data-id="1" title="削除">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -428,11 +434,12 @@
                                         <td>2025/4/9</td>
                                         <td>鈴木一郎</td>
                                         <td>RAV4</td>
+                                        <td>相見積もり</td>
                                         <td>
-                                            <button class="btn btn-icon view-detail-btn" data-id="2">
+                                            <button class="btn btn-icon view-detail-btn" data-id="2" title="詳細表示">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-icon delete-history-btn" data-id="2">
+                                            <button class="btn btn-icon delete-history-btn" data-id="2" title="削除">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -441,11 +448,12 @@
                                         <td>2025/4/8</td>
                                         <td>佐藤花子</td>
                                         <td>ヤリス</td>
+                                        <td>購入意向なし</td>
                                         <td>
-                                            <button class="btn btn-icon view-detail-btn" data-id="3">
+                                            <button class="btn btn-icon view-detail-btn" data-id="3" title="詳細表示">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-icon delete-history-btn" data-id="3">
+                                            <button class="btn btn-icon delete-history-btn" data-id="3" title="削除">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -453,21 +461,27 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pagination">
-                            <button class="pagination-btn" disabled>
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="pagination-number active">1</button>
-                            <button class="pagination-number">2</button>
-                            <button class="pagination-number">3</button>
-                            <button class="pagination-btn">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
+                        <nav aria-label="履歴ページナビゲーション">
+                            <ul class="pagination" id="history-pagination">
+                                <li class="page-item disabled">
+                                    <button class="pagination-btn" disabled>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                </li>
+                                <li class="page-item active"><button class="pagination-number active">1</button></li>
+                                <li class="page-item"><button class="pagination-number">2</button></li>
+                                <li class="page-item"><button class="pagination-number">3</button></li>
+                                <li class="page-item">
+                                    <button class="pagination-btn">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
-                <div class="card history-detail-card hidden">
+                <div class="card history-detail-card hidden" id="history-detail-card">
                     <div class="card-header">
                         <h2><i class="fas fa-info-circle"></i> 履歴詳細</h2>
                         <button class="close-detail-btn">
@@ -476,9 +490,11 @@
                     </div>
                     <div class="card-body">
                         <div class="history-detail-content">
-                            <h3>山田太郎様 - 2025/4/10</h3>
-                            <p><strong>提案車種:</strong> シエンタ G</p>
-                            <p><strong>支払方法:</strong> 残価設定型クレジット</p>
+                            <h3 id="detail-customer-name">山田太郎様 - 2025/4/10</h3>
+                            <p><strong>提案車種:</strong> <span id="detail-car-model">シエンタ G</span></p>
+                            <p><strong>支払方法:</strong> <span id="detail-payment-method">残価設定型クレジット</span></p>
+                            <p><strong>顧客タイプ:</strong> <span id="detail-customer-type">購入意向あり</span></p>
+                            <p><strong>顧客情報:</strong> <span id="detail-customer-info">家族構成: 妻、子供2人（5歳・2歳）</span></p>
                             <div class="history-detail-actions">
                                 <button id="show-proposal-again-btn" class="btn btn-secondary">
                                     <i class="fas fa-lightbulb"></i> 提案内容を再表示
@@ -496,61 +512,74 @@
             <div id="settings-modal" class="modal hidden">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2><i class="fas fa-cog"></i> 設定</h2>
+                        <h2><i class="fas fa-cog"></i> API設定</h2>
                         <button class="close-modal-btn">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="settings-section">
-                            <h3>API設定</h3>
-                            <div class="form-group">
-                                <label for="api-key">Dify APIキー</label>
-                                <div class="password-input">
-                                    <input type="password" id="api-key" value="sk-12345678901234567890">
-                                    <button class="toggle-password-btn">
-                                        <i class="fas fa-eye"></i>
+                        <form id="api-settings-form">
+                            <div class="settings-section">
+                                <h3>APIエンドポイント</h3>
+                                <div class="form-group">
+                                    <label for="api-endpoint">Dify APIエンドポイントURL</label>
+                                    <input type="text" id="api-endpoint" value="https://api.dify.ai/v1/assistant">
+                                    <div class="form-text">トヨタセールスAIアシスタントが接続するDify APIのURLです</div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>APIキー設定</h3>
+                                <div class="form-group">
+                                    <label for="api-key-proposal">提案生成用APIキー</label>
+                                    <div class="password-input">
+                                        <input type="password" id="api-key-proposal" value="sk-proposal123456">
+                                        <button type="button" class="toggle-password-btn" data-target="api-key-proposal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text">提案生成ワークフローにアクセスするためのAPIキーです</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="api-key-qa">質問応答用APIキー</label>
+                                    <div class="password-input">
+                                        <input type="password" id="api-key-qa" value="sk-qa123456">
+                                        <button type="button" class="toggle-password-btn" data-target="api-key-qa">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text">質問応答APIにアクセスするためのAPIキーです</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="api-key-salestalk">セールストーク生成用APIキー</label>
+                                    <div class="password-input">
+                                        <input type="password" id="api-key-salestalk" value="sk-salestalk123456">
+                                        <button type="button" class="toggle-password-btn" data-target="api-key-salestalk">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text">セールストーク生成APIにアクセスするためのAPIキーです</div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>接続ステータス</h3>
+                                <div class="connection-status">
+                                    <div id="connection-indicator" class="status-indicator">
+                                        <i class="fas fa-question-circle"></i>
+                                        <span id="connection-status-text">未テスト</span>
+                                    </div>
+                                    <p id="connection-details">接続テストを実行して、API設定が正しく機能しているか確認してください。</p>
+                                    <button type="button" id="test-connection-btn" class="btn btn-secondary">
+                                        <i class="fas fa-vial"></i> 接続テスト実行
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="api-endpoint">APIエンドポイント</label>
-                                <input type="text" id="api-endpoint" value="https://api.dify.ai/v1/assistant">
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3>ロールプレイURL設定</h3>
-                            <div class="form-group">
-                                <label for="sales-role-url">セールス役URL</label>
-                                <input type="text" id="sales-role-url" value="https://play.dify.ai/sales-role">
-                            </div>
-                            <div class="form-group">
-                                <label for="customer-role-url">顧客役URL</label>
-                                <input type="text" id="customer-role-url" value="https://play.dify.ai/customer-role">
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3>接続テスト</h3>
-                            <div class="connection-status">
-                                <div class="status-indicator success">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>正常に接続されています</span>
-                                </div>
-                                <p>最終テスト日時: 2025/4/10 15:30</p>
-                                <button id="test-connection-btn" class="btn btn-secondary">
-                                    <i class="fas fa-vial"></i> 接続テスト実行
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="save-settings-btn" class="btn btn-primary">
-                            <i class="fas fa-save"></i> 保存
-                        </button>
-                        <button id="reset-default-btn" class="btn btn-secondary">
-                            <i class="fas fa-undo"></i> デフォルト設定に戻す
+                        <button type="submit" form="api-settings-form" id="save-settings-btn" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 設定を保存
                         </button>
                     </div>
                 </div>
