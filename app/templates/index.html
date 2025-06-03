@@ -66,28 +66,6 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-users"></i> 顧客タイプ</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="type-1" name="customer-type" value="購入意向なし（サービスで来店）" checked>
-                                <label for="type-1">購入意向なし（サービスで来店）</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="type-2" name="customer-type" value="購入意向あり（車種検討済み）">
-                                <label for="type-2">購入意向あり（車種検討済み）</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="type-3" name="customer-type" value="相見積もり（競合検討）">
-                                <label for="type-3">相見積もり（競合検討）</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
                         <h2><i class="fas fa-info-circle"></i> 顧客情報詳細</h2>
                     </div>
                     <div class="card-body">
@@ -125,9 +103,8 @@
                     </div>
                     <div class="card-body" id="customer-summary">
                         <div class="customer-summary-content">
-                            <p><strong><span id="summary-name">山田太郎</span>様</strong></p>
-                            <p>顧客タイプ: <span id="summary-type">購入意向あり（車種検討済み）</span></p>
-                            <p id="summary-details">家族構成: 妻、子供2人（5歳・2歳）</p>
+                            <p><strong><span id="summary-name"></span>様</strong></p>
+                            <p id="summary-details"></p>
                         </div>
                     </div>
                 </div>
@@ -135,6 +112,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h2><i class="fas fa-car"></i> 提案内容</h2>
+                        <button id="copy-proposal-btn" class="btn btn-text" title="提案内容をマークダウン形式でコピー">
+                            <i class="fas fa-copy"></i> コピー
+                        </button>
                     </div>
                     <div class="card-body">
                         <!-- タブナビゲーション -->
@@ -158,16 +138,15 @@
                             <!-- 車種タブ -->
                             <div id="car-tab" class="proposal-tab-content active">
                                 <div class="proposal-header">
-                                    <h3 id="car-model">シエンタ</h3>
+                                    <h3 id="car-model"></h3>
                                 </div>
                                 <div class="proposal-details">
-                                    <p><strong>グレード:</strong> <span id="car-grade">G （推奨）</span></p>
-                                    <p><strong>価格帯:</strong> <span id="car-price">270万円～</span></p>
+                                    <p><strong>グレード:</strong> <span id="car-grade"></span></p>
+                                    <p><strong>価格帯:</strong> <span id="car-price"></span></p>
                                 </div>
                                 <div class="proposal-reason">
                                     <h4>提案理由:</h4>
                                     <p id="car-reason">
-                                        家族4人での使用に適した3列シート、子供の成長に合わせて長く使える実用性、燃費性能の良さと経済性を考慮して選定しました。
                                     </p>
                                 </div>
                             </div>
@@ -175,20 +154,15 @@
                             <!-- 支払方法タブ -->
                             <div id="payment-tab" class="proposal-tab-content">
                                 <div class="proposal-header">
-                                    <h3 id="payment-method">残価設定型クレジット</h3>
+                                    <h3 id="payment-method"></h3>
                                 </div>
                                 <div class="proposal-details">
-                                    <p><strong>月々の支払い目安:</strong> <span id="payment-monthly">35,000円</span></p>
-                                    <p><strong>頭金:</strong> <span id="payment-downpayment">50万円</span></p>
-                                    <p><strong>契約期間:</strong> <span id="payment-period">60ヶ月（5年）</span></p>
-                                    <p><strong>ボーナス加算:</strong> <span id="payment-bonus">年2回 各10万円</span></p>
-                                    <p><strong>残価設定額:</strong> <span id="payment-residual">約110万円（車両価格の40％）</span></p>
-                                    <p><strong>実質年率:</strong> <span id="payment-rate">2.9％</span></p>
+                                    <h4>支払シミュレーション:</h4>
+                                    <p id="payment-simulation"></p>
                                 </div>
                                 <div class="proposal-reason">
                                     <h4>提案理由:</h4>
                                     <p id="payment-reason">
-                                        子供の教育費増加を見据えた家計計画、5年後の買い替えニーズに対応、月々の支払いを抑えながら新車に乗れるメリットがあります。
                                     </p>
                                 </div>
                             </div>
@@ -196,16 +170,11 @@
                             <!-- 購入時期タブ -->
                             <div id="timing-tab" class="proposal-tab-content">
                                 <div class="proposal-header">
-                                    <h3 id="recommended-timing">3ヶ月以内の購入を推奨</h3>
-                                </div>
-                                <div class="proposal-details">
-                                    <p><strong>推奨時期:</strong> <span id="timing-period">2025年7月まで</span></p>
-                                    <p><strong>現在のキャンペーン:</strong> <span id="timing-campaign">夏の買替応援キャンペーン実施中</span></p>
+                                    <h3 id="recommended-timing"></h3>
                                 </div>
                                 <div class="proposal-reason">
                                     <h4>提案理由:</h4>
                                     <p id="timing-reason">
-                                        現在実施中のキャンペーンにより、下取り価格の上乗せや金利優遇が適用され、最もお得に購入できる時期です。また、お子様の夏休み前の納車で家族でのおでかけにも活用できます。
                                     </p>
                                 </div>
                             </div>
@@ -213,22 +182,15 @@
                             <!-- 下取りタブ -->
                             <div id="tradein-tab" class="proposal-tab-content">
                                 <div class="proposal-header">
-                                    <h3>下取り対応の詳細</h3>
+                                    <h3>下取り</h3>
                                 </div>
                                 <div class="proposal-details">
-                                    <p><strong>下取車両:</strong> <span id="tradein-car">スズキ ワゴンR（2015年式）</span></p>
-                                    <p><strong>査定金額:</strong> <span id="tradein-price">約45万円</span></p>
-                                    <p><strong>特別査定キャンペーン:</strong> <span id="tradein-campaign">+5万円</span></p>
-                                    <p><strong>下取適用後の車両価格:</strong> <span id="tradein-final">220万円〜</span></p>
+                                    <p><strong>現在の車:</strong> <span id="tradein-car"></span></p>
+                                    <p><strong>査定額:</strong> <span id="tradein-price"></span></p>
                                 </div>
                                 <div class="proposal-reason">
-                                    <h4>下取りメリット:</h4>
+                                    <h4>理由:</h4>
                                     <div id="tradein-details">
-                                        <ul>
-                                            <li>名義変更や廃車手続きの手間が不要</li>
-                                            <li>新車の頭金に充当可能</li>
-                                            <li>現在実施中の下取りキャンペーンで査定額アップ</li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -290,9 +252,14 @@
                     <div class="card-body">
                         <div class="sales-talk" id="salestalk-content">
                             <p class="text-muted">「セールストークを生成」ボタンをクリックして、AIによるセールストークを生成してください。</p>
-                            <button id="copy-sales-talk" class="btn btn-text">
-                                <i class="fas fa-copy"></i> 全文コピー
-                            </button>
+                            <div class="roleplay-buttons">
+                                <button id="generate-roleplay-btn" class="btn btn-primary">
+                                    <i class="fas fa-robot"></i> セールストークを生成
+                                </button>
+                                <button id="copy-sales-talk" class="btn btn-text">
+                                    <i class="fas fa-copy"></i> 全文コピー
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -395,11 +362,11 @@
                     </div>
                     <div class="card-body">
                         <div class="history-detail-content">
-                            <h3 id="detail-customer-name">山田太郎様 - 2025/4/10</h3>
-                            <p><strong>提案車種:</strong> <span id="detail-car-model">シエンタ G</span></p>
-                            <p><strong>支払方法:</strong> <span id="detail-payment-method">残価設定型クレジット</span></p>
-                            <p><strong>顧客タイプ:</strong> <span id="detail-customer-type">購入意向あり</span></p>
-                            <p><strong>顧客情報:</strong> <span id="detail-customer-info">家族構成: 妻、子供2人（5歳・2歳）</span></p>
+                            <h3 id="detail-customer-name"></h3>
+                            <p><strong>提案車種:</strong> <span id="detail-car-model"></span></p>
+                            <p><strong>支払方法:</strong> <span id="detail-payment-method"></span></p>
+                            <p><strong>顧客タイプ:</strong> <span id="detail-customer-type"></span></p>
+                            <p><strong>顧客情報:</strong> <span id="detail-customer-info"></span></p>
                             <div class="history-detail-actions">
                                 <button id="show-proposal-again-btn" class="btn btn-secondary">
                                     <i class="fas fa-lightbulb"></i> 提案内容を再表示
@@ -520,7 +487,7 @@
     </div>
 
     <!-- ロールプレイURL設定 (隠し要素) -->
-    <input type="hidden" id="sales-role-url" value="https://play.dify.ai/sales-role">
-    <input type="hidden" id="customer-role-url" value="https://play.dify.ai/customer-role">
+    <input type="hidden" id="customer-role-url" value="http://54.92.0.96/chat/2o93rFsHgZ1whGey">
+    <input type="hidden" id="sales-role-url" value="http://54.92.0.96/chat/2jg8183mbPBWOd1b">
 </body>
 </html> 
